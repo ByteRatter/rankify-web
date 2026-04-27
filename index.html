@@ -1,29 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rankify | Roblox Group Management</title>
-    <style>
-        body { font-family: sans-serif; background: #111; color: gold; text-align: center; padding: 50px; }
-        .container { max-width: 800px; margin: auto; border: 1px solid #333; padding: 20px; border-radius: 10px; }
-        h1 { color: #fff; }
-        .feature { margin: 20px 0; color: #ccc; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rankify Automation</title>
+
+<style>
+:root {
+    --bg: #0d1117;
+    --card: rgba(255, 255, 255, 0.05);
+    --gold: #FFD700;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* HERO */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.hero span {
+    color: var(--gold);
+}
+
+.hero p {
+    margin-top: 1rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin-inline: auto;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-decoration: none;
+    transition: 0.3s ease;
+    position: relative;
+}
+
+.btn:hover {
+    background: var(--gold);
+    color: black;
+    box-shadow: 0 0 20px var(--gold);
+}
+
+/* SECTION */
+section {
+    padding: 80px 0;
+}
+
+/* GLASS CARD */
+.card {
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 25px;
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* HEADINGS */
+h2 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* TECH */
+.tech .card {
+    text-align: center;
+}
+
+/* FEATURES */
+.features .card h3 {
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+}
+</style>
 </head>
+
 <body>
+
+<!-- HERO -->
+<section class="hero">
     <div class="container">
-        <h1>Rankify Automation</h1>
-        <p>Advanced Roblox group management powered by Node.js.</p>
-        <div class="feature">
-            <h3>Fast Ranking</h3>
-            <p>Update member ranks in seconds using our optimized API integration.</p>
-        </div>
-        <div class="feature">
-            <h3>Secure Management</h3>
-            <p>Built with Discord.js v14 for high-speed, reliable bot interactions.</p>
-        </div>
-        <p><i>Official documentation and dashboard for the Rankify ecosystem.</i></p>
+        <h1><span>Rankify</span> Automation</h1>
+        <p>Next-gen Roblox community management powered by Node.js. Lightning-fast rankings, absolute security.</p>
+        <a href="#" class="btn">Get Started</a>
     </div>
+</section>
+
+<!-- TECH SPECS -->
+<section class="tech">
+    <div class="container">
+        <h2>Tech Stack</h2>
+        <div class="grid grid-3">
+            <div class="card">Built on Discord.js v14</div>
+            <div class="card">Real-time MongoDB integration</div>
+            <div class="card">Zero-latency API Layer</div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+    <div class="container">
+        <h2>Core Features</h2>
+        <div class="grid grid-3">
+            <div class="card">
+                <h3>Instant Ranking</h3>
+                <p>Execute group ranking operations in milliseconds with optimized automation pipelines.</p>
+            </div>
+
+            <div class="card">
+                <h3>Mass Action Detection</h3>
+                <p>Advanced monitoring system prevents abuse, exploits, and suspicious ranking behavior.</p>
+            </div>
+
+            <div class="card">
+                <h3>Open Cloud Integration</h3>
+                <p>Seamlessly connect Roblox Open Cloud APIs with your backend for full automation control.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <div class="container" style="text-align:center;">
+        <h2>Ready to automate your Roblox group?</h2>
+        <a href="#" class="btn">Get Started</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Rankify. Built for performance.</p>
+</footer>
+
 </body>
 </html>
