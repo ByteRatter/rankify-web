@@ -3,269 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rankify | Next-gen Roblox Automation</title>
+  <title>Rankify Automation</title>
   <style>
     :root {
-      --bg: #0d1117;
-      --card-bg: rgba(22, 27, 34, 0.6);
-      --border: rgba(255, 215, 0, 0.15);
-      --gold: #FFD700;
-      --gold-glow: rgba(255, 215, 0, 0.3);
-      --text: #e6edf3;
-      --text-muted: #7d8590;
-      --radius: 16px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      --bg-color: #0d1117;
+      --accent-color: #FFD700;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.15);
+      --text-color: #ffffff;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       line-height: 1.6;
-      overflow-x: hidden;
     }
 
-    .container {
+    header {
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.85;
+    }
+
+    section {
+      padding: 4rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 24px;
     }
 
-    /* Glassmorphism Card */
-    .glass {
+    .tech-specs, .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
       background: var(--card-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Header */
-    header {
-      padding: 24px 0;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: -0.5px;
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 120px 0 80px;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -2px;
-    }
-
-    .hero h1 span {
-      color: var(--gold);
-    }
-
-    .hero p {
-      font-size: 1.25rem;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-
-    .cta-btn {
-      display: inline-block;
-      background: var(--gold);
-      color: var(--bg);
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 16px 32px;
+      border: 1px solid var(--card-border);
       border-radius: 12px;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      border: 1px solid var(--gold);
-    }
-
-    .cta-btn:hover {
-      background: transparent;
-      color: var(--gold);
-      box-shadow: 0 0 24px var(--gold-glow);
-      transform: translateY(-2px);
-    }
-
-    /* Tech Specs */
-    .tech-specs {
-      padding: 80px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 48px;
-    }
-
-    .section-title span {
-      color: var(--gold);
-    }
-
-    .specs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .spec-card {
-      padding: 32px 24px;
-      text-align: center;
-    }
-
-    .spec-card h3 {
-      color: var(--gold);
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .spec-card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    /* Features */
-    .features {
-      padding: 80px 0;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 32px;
-    }
-
-    .feature-card {
-      padding: 40px 32px;
+      padding: 2rem;
+      backdrop-filter: blur(12px);
       transition: transform 0.2s ease;
     }
 
-    .feature-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 215, 0, 0.3);
+    .card:hover {
+      transform: translateY(-5px);
     }
 
-    .feature-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 16px;
-      color: var(--gold);
+    .card h3 {
+      color: var(--accent-color);
+      margin-bottom: 1rem;
     }
 
-    .feature-card p {
-      color: var(--text-muted);
-    }
-
-    /* Footer */
-    footer {
-      padding: 60px 0 40px;
+    .cta {
       text-align: center;
-      border-top: 1px solid var(--border);
-      margin-top: 60px;
+      margin-top: 3rem;
     }
 
-    footer p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
+    .cta button {
+      background: none;
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 80px 0 60px;
+    .cta button:hover {
+      background: var(--accent-color);
+      color: var(--bg-color);
+      box-shadow: 0 0 20px var(--accent-color);
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
       }
-      .tech-specs, .features {
-        padding: 60px 0;
+      header p {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Hero Section -->
   <header>
-    <div class="container">
-      <nav>
-        <div class="logo">Rankify</div>
-      </nav>
-    </div>
+    <h1>Rankify Automation</h1>
+    <p>Next-gen Roblox community management powered by Node.js. Lightning-fast rankings, absolute security.</p>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container">
-        <h1><span>Rankify</span> Automation</h1>
-        <p>Next-gen Roblox community management powered by Node.js. Lightning-fast rankings, absolute security.</p>
-        <a href="#get-started" class="cta-btn">Get Started</a>
+  <!-- Tech Specs -->
+  <section>
+    <h2 style="text-align:center; color:var(--accent-color);">Tech Specs</h2>
+    <div class="tech-specs">
+      <div class="card">
+        <h3>Discord.js v14</h3>
+        <p>Built on the latest Discord.js framework for seamless bot integration.</p>
       </div>
-    </section>
-
-    <section class="tech-specs">
-      <div class="container">
-        <h2 class="section-title">Built for <span>Performance</span></h2>
-        <div class="specs-grid">
-          <div class="glass spec-card">
-            <h3>Discord.js v14</h3>
-            <p>Modern slash commands and interaction handling for seamless bot control.</p>
-          </div>
-          <div class="glass spec-card">
-            <h3>Real-time MongoDB</h3>
-            <p>Change streams and optimized indexes deliver instant data synchronization.</p>
-          </div>
-          <div class="glass spec-card">
-            <h3>Zero-latency API Layer</h3>
-            <p>Custom Node.js middleware built for sub-50ms Roblox Open Cloud responses.</p>
-          </div>
-        </div>
+      <div class="card">
+        <h3>MongoDB</h3>
+        <p>Real-time database integration ensures instant updates and secure storage.</p>
       </div>
-    </section>
-
-    <section class="features">
-      <div class="container">
-        <h2 class="section-title">Core <span>Features</span></h2>
-        <div class="features-grid">
-          <div class="glass feature-card">
-            <h3>Instant Ranking</h3>
-            <p>Execute rank changes in milliseconds. Queue-based architecture prevents rate limits while maintaining speed at scale.</p>
-          </div>
-          <div class="glass feature-card">
-            <h3>Mass Action Detection</h3>
-            <p>Intelligent monitoring flags suspicious activity patterns. Auto-rollback and alert systems protect your group 24/7.</p>
-          </div>
-          <div class="glass feature-card">
-            <h3>Open Cloud Integration</h3>
-            <p>Native Roblox Open Cloud API support. No cookie auth, no security risks. Just direct, authorized group management.</p>
-          </div>
-        </div>
+      <div class="card">
+        <h3>Zero-latency API</h3>
+        <p>Optimized API layer for lightning-fast communication and automation.</p>
       </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 Rankify. Built with Node.js for serious communities.</p>
     </div>
-  </footer>
+  </section>
+
+  <!-- Features -->
+  <section>
+    <h2 style="text-align:center; color:var(--accent-color);">Features</h2>
+    <div class="features">
+      <div class="card">
+        <h3>Instant Ranking</h3>
+        <p>Automate Roblox group promotions and demotions in real-time.</p>
+      </div>
+      <div class="card">
+        <h3>Mass Action Detection</h3>
+        <p>Detect and respond to suspicious group activities instantly.</p>
+      </div>
+      <div class="card">
+        <h3>Open Cloud Integration</h3>
+        <p>Connect Rankify with your cloud services for maximum scalability.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <button>Get Started</button>
+  </section>
 </body>
 </html>
