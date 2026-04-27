@@ -14,264 +14,396 @@
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
         }
 
         body {
             font-family: 'Inter', system-ui, sans-serif;
-            background: #0d1117;
-            color: #e2e8f0;
-            overflow-x: hidden;
-            will-change: transform;
         }
 
         .title-font {
             font-family: 'Space Grotesk', sans-serif;
         }
 
-        /* Ultra Performance Optimizations */
         .glass {
-            background: rgba(13, 17, 23, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 215, 0, 0.12);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            background: rgba(13, 17, 23, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 215, 0, 0.15);
         }
 
         .hero-bg {
-            background: radial-gradient(circle at 50% 20%, rgba(255, 215, 0, 0.09) 0%, transparent 60%);
+            background: radial-gradient(at center top, rgba(255, 215, 0, 0.08) 0%, transparent 50%);
         }
 
         .gold-glow {
-            box-shadow: 
-                0 0 30px -5px rgba(255, 215, 0, 0.6),
-                0 0 15px -5px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 25px -5px rgb(255 215 0 / 0.5),
+                        0 0 10px -5px rgb(255 215 0 / 0.3);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #FFD700;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
         }
 
         .feature-card {
-            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), 
-                        box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-            will-change: transform;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .feature-card:hover {
-            transform: translateY(-16px) scale(1.03);
+            transform: translateY(-12px) scale(1.02);
+            border-color: #FFD700;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3),
+                        0 8px 10px -6px rgb(0 0 0 / 0.3);
         }
 
-        /* Hardware Accelerated Elements */
-        .accelerated {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
+        .scan-line {
+            position: relative;
         }
 
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
+        .scan-line:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                transparent 40%,
+                rgba(255, 215, 0, 0.08) 50%,
+                transparent 60%
+            );
+            animation: scan 4s linear infinite;
+            pointer-events: none;
         }
 
-        /* Terminal Animation - GPU Accelerated */
-        .terminal-line {
-            animation: typing 1.2s steps(40, end) forwards;
-            overflow: hidden;
-            white-space: nowrap;
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(300%); }
         }
 
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        /* Remove heavy animations on scroll for max FPS */
-        @media (prefers-reduced-motion: reduce) {
-            * { transition: none !important; animation: none !important; }
+        .terminal {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-size: 0.95rem;
         }
     </style>
 </head>
-<body class="accelerated">
+<body class="bg-[#0d1117] text-slate-200 overflow-x-hidden">
 
     <!-- NAVBAR -->
-    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0d1117]/95 backdrop-blur-xl accelerated">
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0d1117]/80 backdrop-blur-lg">
         <div class="max-w-screen-2xl mx-auto px-8 py-5 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-2xl bg-gradient-to-br from-[#FFD700] to-amber-400 flex items-center justify-center text-black font-bold text-2xl shadow-inner">R</div>
-                <span class="title-font text-3xl font-semibold tracking-tighter">Rankify</span>
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FFD700] to-amber-500 flex items-center justify-center text-black font-bold text-xl">R</div>
+                <span class="title-font text-2xl font-semibold tracking-tighter">Rankify</span>
             </div>
             
             <div class="hidden md:flex items-center gap-10 text-sm font-medium">
-                <a href="#features" class="hover:text-[#FFD700]">Features</a>
-                <a href="#tech" class="hover:text-[#FFD700]">Tech Stack</a>
-                <a href="#" class="hover:text-[#FFD700]">Docs</a>
+                <a href="#features" class="nav-link text-slate-300 hover:text-white">Features</a>
+                <a href="#tech" class="nav-link text-slate-300 hover:text-white">Tech</a>
+                <a href="#" class="nav-link text-slate-300 hover:text-white">Docs</a>
+                <a href="#" class="nav-link text-slate-300 hover:text-white">Pricing</a>
             </div>
 
             <div class="flex items-center gap-4">
-                <button class="px-7 py-3 text-sm font-medium border border-white/20 hover:border-white/40 rounded-2xl">Login</button>
-                <button onclick="document.getElementById('cta').scrollIntoView({ behavior: 'smooth' })" 
-                        class="px-8 py-3 bg-[#FFD700] hover:bg-amber-300 text-black font-semibold rounded-2xl gold-glow">
+                <button onclick="window.scrollTo({top: document.getElementById('cta').offsetTop, behavior: 'smooth'})"
+                        class="px-6 py-2.5 text-sm font-semibold border border-[#FFD700]/30 hover:border-[#FFD700] rounded-2xl flex items-center gap-2 hover:bg-[#FFD700]/10">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>Login</span>
+                </button>
+                <button onclick="window.scrollTo({top: document.getElementById('cta').offsetTop, behavior: 'smooth'})"
+                        class="px-8 py-2.5 bg-[#FFD700] hover:bg-amber-400 text-black font-semibold rounded-2xl flex items-center gap-2 shadow-lg shadow-[#FFD700]/30">
                     Get Started Free
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- HERO - Optimized for 4K -->
-    <section class="hero-bg min-h-screen flex items-center pt-16 relative">
-        <div class="max-w-screen-2xl mx-auto px-8 grid lg:grid-cols-2 gap-16 items-center">
-            <div class="pt-12 lg:pt-0">
-                <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-6 py-2 text-xs tracking-[2px] mb-8">
+    <!-- HERO -->
+    <section class="hero-bg min-h-screen flex items-center pt-20">
+        <div class="max-w-screen-2xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center">
+            <div class="pt-20 md:pt-0">
+                <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-3xl px-5 py-2 text-xs font-mono tracking-widest mb-6">
                     <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                    OPEN BETA — 240 FPS OPTIMIZED
+                    NOW IN OPEN BETA
                 </div>
-
-                <h1 class="title-font text-[4.8rem] lg:text-[5.8rem] leading-[1.05] font-bold tracking-tighter mb-6">
+                
+                <h1 class="title-font text-7xl md:text-8xl font-bold leading-none tracking-tighter mb-6">
                     RANKIFY<br>
                     <span class="text-[#FFD700]">AUTOMATION</span>
                 </h1>
                 
-                <p class="text-2xl text-slate-300 max-w-lg mb-12">
-                    Next-gen Roblox group management.<br>
-                    Built with Node.js • Lightning fast • Military-grade security.
+                <p class="text-2xl text-slate-400 max-w-lg leading-tight mb-10">
+                    Next-gen Roblox group management powered by Node.js.<br>
+                    Lightning-fast rankings. Absolute security.
                 </p>
 
-                <div class="flex flex-wrap gap-5">
+                <div class="flex items-center gap-4">
                     <button onclick="document.getElementById('cta').scrollIntoView({ behavior: 'smooth' })" 
-                            class="px-12 py-7 text-2xl font-semibold bg-[#FFD700] hover:bg-amber-300 text-black rounded-3xl gold-glow flex items-center gap-4 shadow-2xl">
-                        Start Free Trial
-                        <i class="fa-solid fa-arrow-right"></i>
+                            class="group px-10 py-6 bg-[#FFD700] hover:bg-amber-300 text-black font-semibold text-xl rounded-3xl flex items-center gap-4 gold-glow">
+                        <span>Get Started Now</span>
+                        <i class="fa-solid fa-arrow-right group-active:rotate-45"></i>
                     </button>
                     
-                    <button class="px-10 py-7 border border-white/30 hover:border-white/60 rounded-3xl text-lg font-medium flex items-center gap-3">
-                        <i class="fa-brands fa-github text-xl"></i>
-                        GitHub
+                    <button onclick="window.open('https://github.com', '_blank')" 
+                            class="px-8 py-6 border border-white/20 hover:border-white/40 rounded-3xl flex items-center gap-3 text-lg">
+                        <i class="fa-brands fa-github"></i>
+                        <span class="font-medium">View on GitHub</span>
                     </button>
                 </div>
 
-                <!-- Trust Stats -->
-                <div class="mt-20 flex gap-12 text-sm">
-                    <div>
-                        <div class="text-3xl font-mono text-emerald-400">99.99%</div>
-                        <div class="text-slate-500 text-xs tracking-widest">UPTIME</div>
+                <div class="mt-16 flex items-center gap-12 text-sm">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-shield-halved text-emerald-400 text-2xl"></i>
+                        <div>
+                            <div class="font-mono text-emerald-400">99.98%</div>
+                            <div class="text-xs text-slate-500">UPTIME</div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="text-3xl font-mono text-[#FFD700]">≤ 38ms</div>
-                        <div class="text-slate-500 text-xs tracking-widest">RESPONSE</div>
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-bolt text-[#FFD700] text-2xl"></i>
+                        <div>
+                            <div class="font-mono">42ms</div>
+                            <div class="text-xs text-slate-500">AVG RESPONSE</div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="text-3xl font-mono">18,942</div>
-                        <div class="text-slate-500 text-xs tracking-widest">GROUPS</div>
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-users text-blue-400 text-2xl"></i>
+                        <div>
+                            <div class="font-mono">12,459</div>
+                            <div class="text-xs text-slate-500">GROUPS MANAGED</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Ultra Clean Terminal -->
-            <div class="relative hidden lg:block">
-                <div class="glass rounded-3xl p-10 accelerated" style="box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6);">
-                    <div class="bg-[#0a0e14] rounded-2xl p-8 font-mono text-sm text-emerald-300/90 border border-white/5">
-                        <div class="flex justify-between text-xs text-slate-500 mb-6">
-                            <div>rankify • live • v2.4.1</div>
-                            <div>Connected to Roblox Open Cloud</div>
+            <!-- Visual Terminal / Dashboard Mock -->
+            <div class="relative hidden md:block">
+                <div class="glass rounded-3xl p-8 shadow-2xl border border-white/10 scan-line">
+                    <div class="bg-black/90 rounded-2xl p-6 terminal text-emerald-400/90">
+                        <div class="flex items-center gap-2 mb-6 text-slate-400 text-xs">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                            <div class="ml-auto">rankify-bot • main.ts</div>
                         </div>
                         
-                        <div class="space-y-6">
-                            <div class="terminal-line">$ rankify promote @Razeen "Overseer" --silent</div>
-                            <div class="text-emerald-400 text-xs">✓ Success • 41ms • Rank updated</div>
+                        <div class="space-y-3 text-sm">
+                            <div><span class="text-violet-400">$</span> rankify promote @user "Elite" --reason "Active contributor"</div>
+                            <div class="text-emerald-400">✓ Promoted in 87ms • Group ID: 12345678</div>
                             
                             <div class="pt-4 border-t border-white/10">
-                                <div class="terminal-line">$ rankify scan --mass-join</div>
-                                <div class="text-amber-400 text-xs mt-1">⚠ 12 suspicious joins detected</div>
+                                <div><span class="text-violet-400">$</span> rankify detect mass-join</div>
+                                <div class="text-amber-400">⚠ Detected 47 suspicious joins in last 60s</div>
+                            </div>
+                            
+                            <div class="pt-4 border-t border-white/10 text-slate-400 text-xs">
+                                Connected to Roblox Open Cloud • MongoDB Sync: LIVE
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <!-- Floating badges -->
+                <div class="absolute -top-6 -right-6 glass px-5 py-3 rounded-2xl border border-[#FFD700]/30 text-xs flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-[#FFD700]"></i>
+                    <span class="font-medium text-white">Lightning Fast</span>
+                </div>
+                
+                <div class="absolute -bottom-6 -left-6 glass px-6 py-3 rounded-2xl border border-emerald-400/30 text-xs">
+                    <span class="text-emerald-400 font-mono">SECURE • ENCRYPTED</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TECH STACK -->
-    <section id="tech" class="py-28 border-t border-white/5">
+    <!-- TECH SPECS -->
+    <section id="tech" class="py-24 border-t border-white/10">
         <div class="max-w-screen-2xl mx-auto px-8">
             <div class="text-center mb-16">
-                <h2 class="title-font text-5xl font-semibold tracking-tight">Built for Maximum Performance</h2>
+                <div class="inline-block px-6 py-2 bg-white/5 rounded-3xl text-sm font-medium border border-white/10 mb-4">
+                    POWERED BY
+                </div>
+                <h2 class="title-font text-5xl font-semibold tracking-tight">Battle-tested Stack</h2>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <div class="glass rounded-3xl p-10 text-center accelerated">
-                    <i class="fa-brands fa-discord text-6xl text-indigo-400 mb-6"></i>
-                    <h3 class="text-2xl font-semibold">Discord.js v14</h3>
-                    <p class="text-slate-400 mt-3">Optimized event handling with zero blocking</p>
+            <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Tech Card 1 -->
+                <div class="glass rounded-3xl p-10 text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center text-4xl">
+                        <i class="fa-brands fa-discord"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2">Discord.js v14</h3>
+                    <p class="text-slate-400">Enterprise-grade Discord bot framework with full slash command &amp; interaction support.</p>
+                    <div class="mt-8 pt-8 border-t border-white/10 text-xs font-mono text-slate-500">v14.15.3 • Stable</div>
                 </div>
-                <div class="glass rounded-3xl p-10 text-center border border-[#FFD700]/30 accelerated">
-                    <i class="fa-solid fa-database text-6xl text-emerald-400 mb-6"></i>
-                    <h3 class="text-2xl font-semibold">MongoDB + Change Streams</h3>
-                    <p class="text-slate-400 mt-3">Real-time sync under 10ms</p>
+
+                <!-- Tech Card 2 -->
+                <div class="glass rounded-3xl p-10 text-center border border-[#FFD700]/30 relative">
+                    <div class="absolute -top-3 right-6 px-4 py-1 bg-[#FFD700] text-black text-xs font-bold rounded-full">RECOMMENDED</div>
+                    <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center text-4xl">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2">MongoDB Atlas</h3>
+                    <p class="text-slate-400">Real-time synchronization of ranks, audit logs, and member data with sub-10ms latency.</p>
+                    <div class="mt-8 pt-8 border-t border-white/10 text-xs font-mono text-emerald-400">CHANGE STREAMS ENABLED</div>
                 </div>
-                <div class="glass rounded-3xl p-10 text-center accelerated">
-                    <i class="fa-solid fa-cloud text-6xl text-sky-400 mb-6"></i>
-                    <h3 class="text-2xl font-semibold">Roblox Open Cloud</h3>
-                    <p class="text-slate-400 mt-3">Native • No scraping • Future proof</p>
+
+                <!-- Tech Card 3 -->
+                <div class="glass rounded-3xl p-10 text-center">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center text-4xl">
+                        <i class="fa-solid fa-cloud"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2">Roblox Open Cloud</h3>
+                    <p class="text-slate-400">Official Roblox API integration. No third-party scraping. Pure, secure, and future-proof.</p>
+                    <div class="mt-8 pt-8 border-t border-white/10 text-xs font-mono text-slate-500">v1.2 • Rate Limit Optimized</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FEATURES -->
-    <section id="features" class="py-28 bg-black/30">
+    <section id="features" class="py-24 bg-black/40">
         <div class="max-w-screen-2xl mx-auto px-8">
-            <h2 class="title-font text-5xl font-semibold text-center tracking-tight mb-16">High-Performance Features</h2>
-            
+            <div class="text-center mb-16">
+                <h2 class="title-font text-5xl font-semibold tracking-tight mb-3">Built for Speed. Designed for Control.</h2>
+                <p class="text-slate-400 max-w-md mx-auto">Everything you need to manage large Roblox communities at scale.</p>
+            </div>
+
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="feature-card glass rounded-3xl p-10 accelerated">
-                    <div class="text-5xl mb-6">⚡</div>
+                <!-- Feature 1 -->
+                <div class="feature-card glass rounded-3xl p-10 border border-white/10">
+                    <div class="h-12 w-12 bg-gradient-to-br from-[#FFD700] to-amber-400 text-black rounded-2xl flex items-center justify-center text-3xl mb-8">
+                        ⚡
+                    </div>
                     <h3 class="text-3xl font-semibold mb-4">Instant Ranking</h3>
-                    <p class="text-slate-400">Sub-100ms promotions with full audit trail</p>
+                    <p class="text-slate-400 leading-relaxed">
+                        Promote, demote, or exile members in under 100ms. Bulk actions supported with full audit logging.
+                    </p>
+                    <ul class="mt-8 space-y-4 text-sm">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Role hierarchy enforcement</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Custom rank aliases</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Undo / rollback system</li>
+                    </ul>
                 </div>
-                <div class="feature-card glass rounded-3xl p-10 accelerated">
-                    <div class="text-5xl mb-6">🛡️</div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card glass rounded-3xl p-10 border border-white/10">
+                    <div class="h-12 w-12 bg-gradient-to-br from-rose-400 to-pink-500 text-white rounded-2xl flex items-center justify-center text-3xl mb-8">
+                        👁️
+                    </div>
                     <h3 class="text-3xl font-semibold mb-4">Mass Action Detection</h3>
-                    <p class="text-slate-400">Real-time raid protection &amp; anomaly detection</p>
+                    <p class="text-slate-400 leading-relaxed">
+                        AI-powered detection of raid attempts, mass joins, and suspicious activity patterns in real time.
+                    </p>
+                    <ul class="mt-8 space-y-4 text-sm">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Smart rate limiting</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Auto-verification</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Custom trigger rules</li>
+                    </ul>
                 </div>
-                <div class="feature-card glass rounded-3xl p-10 accelerated">
-                    <div class="text-5xl mb-6">☁️</div>
-                    <h3 class="text-3xl font-semibold mb-4">Open Cloud Native</h3>
-                    <p class="text-slate-400">Official Roblox APIs • Maximum security</p>
+
+                <!-- Feature 3 -->
+                <div class="feature-card glass rounded-3xl p-10 border border-white/10">
+                    <div class="h-12 w-12 bg-gradient-to-br from-cyan-400 to-blue-500 text-white rounded-2xl flex items-center justify-center text-3xl mb-8">
+                        ☁️
+                    </div>
+                    <h3 class="text-3xl font-semibold mb-4">Open Cloud Integration</h3>
+                    <p class="text-slate-400 leading-relaxed">
+                        Native Roblox Open Cloud support. Experience, badges, and datastore synchronization without proxies.
+                    </p>
+                    <ul class="mt-8 space-y-4 text-sm">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Experience award automation</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Group shout synchronization</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-400"></i> Secure OAuth2 flow</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FINAL CTA -->
-    <section id="cta" class="py-32 border-t border-white/10">
-        <div class="max-w-2xl mx-auto text-center px-6">
-            <h2 class="title-font text-6xl font-bold tracking-tighter leading-none mb-6">
-                Ready for 240 FPS performance?
-            </h2>
-            <p class="text-xl text-slate-400 mb-12">
-                Join the fastest growing Roblox automation platform.
-            </p>
-            
-            <button onclick="alert('✅ Rankify would launch the signup here in production.\n\nWelcome, Razeen! ⚡')"
-                    class="px-16 py-8 text-3xl font-bold bg-[#FFD700] hover:bg-amber-300 text-black rounded-3xl gold-glow shadow-2xl">
-                Get Started — Free
-            </button>
-            
-            <p class="mt-8 text-xs text-slate-500 font-mono">No credit card • Instant setup • 240 FPS dashboard guaranteed</p>
+    <section id="cta" class="py-32 border-t border-white/10 relative overflow-hidden">
+        <div class="max-w-screen-2xl mx-auto px-8 text-center">
+            <div class="max-w-2xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-8 py-3 bg-white/5 border border-[#FFD700]/20 rounded-full text-sm mb-8">
+                    <span class="text-[#FFD700]">Ready to level up your group?</span>
+                </div>
+                
+                <h2 class="title-font text-6xl font-bold tracking-tighter leading-none mb-6">
+                    Take control of your<br>Roblox community today
+                </h2>
+                
+                <p class="text-slate-400 text-xl mb-12">
+                    Join thousands of group owners who trust Rankify for reliable, blazing-fast automation.
+                </p>
+
+                <button onclick="alert('🚀 Rankify would open the signup flow here in production! (Demo)')"
+                        class="group px-16 py-7 text-2xl font-semibold bg-[#FFD700] hover:bg-amber-300 text-black rounded-3xl flex items-center gap-6 mx-auto gold-glow shadow-2xl">
+                    <span>Start Free — No Credit Card Required</span>
+                    <i class="fa-solid fa-rocket text-3xl group-hover:rotate-12"></i>
+                </button>
+
+                <div class="mt-10 text-xs text-slate-500 font-mono">
+                    14-day unlimited trial • Cancel anytime
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-white/10 text-center text-slate-500 text-sm">
-        © 2026 Rankify • Built for speed • Optimized for 4K 240Hz+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 py-16">
+        <div class="max-w-screen-2xl mx-auto px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#FFD700] to-amber-500 flex items-center justify-center text-black font-bold text-2xl">R</div>
+                    <span class="title-font text-2xl font-semibold tracking-tighter">Rankify</span>
+                </div>
+                
+                <div class="text-slate-500 text-sm">
+                    © 2026 Rankify Automation. Built for the Roblox community.
+                </div>
+                
+                <div class="flex gap-8 text-sm">
+                    <a href="#" class="hover:text-white">Discord</a>
+                    <a href="#" class="hover:text-white">GitHub</a>
+                    <a href="#" class="hover:text-white">Status</a>
+                    <a href="#" class="hover:text-white">Privacy</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Performance logging
-        console.log('%cRankify 4K 240FPS+ Optimized Build Loaded', 'color:#FFD700; font-size:14px; font-family:monospace');
+        // Tailwind script already included via CDN
+        console.log('%cRankify Automation - Demo Landing Page Loaded Successfully ⚡', 'color:#FFD700; font-family:monospace');
         
-        // Force GPU acceleration on scroll
+        // Simple scroll effect for navbar
         window.addEventListener('scroll', () => {
-            document.documentElement.style.setProperty('--scroll-y', window.scrollY + 'px');
-        }, { passive: true });
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-2xl', 'shadow-black/80');
+            } else {
+                nav.classList.remove('shadow-2xl', 'shadow-black/80');
+            }
+        });
     </script>
 </body>
 </html>
