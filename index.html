@@ -1,154 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rankify Automation</title>
-  <style>
-    :root {
-      --bg-color: #0d1117;
-      --accent-color: #FFD700;
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --card-border: rgba(255, 255, 255, 0.15);
-      --text-color: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rankify | High-Performance Automation</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --gold: #FFD700;
+            --gold-glow: rgba(255, 215, 0, 0.3);
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #e6edf3;
+            --text-dim: #8b949e;
+        }
 
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    header {
-      text-align: center;
-      padding: 6rem 2rem;
-    }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    header h1 {
-      font-size: 3rem;
-      color: var(--accent-color);
-      margin-bottom: 1rem;
-    }
+        /* Subtle Background Glow */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+            z-index: -1;
+        }
 
-    header p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto;
-      opacity: 0.85;
-    }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
 
-    section {
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        /* Hero Section */
+        header {
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
 
-    .tech-specs, .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-    }
+        h1 {
+            font-size: 4rem;
+            letter-spacing: -2px;
+            background: linear-gradient(to bottom, #fff 0%, var(--gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 2rem;
-      backdrop-filter: blur(12px);
-      transition: transform 0.2s ease;
-    }
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
 
-    .card:hover {
-      transform: translateY(-5px);
-    }
+        /* CTA Button */
+        .cta-btn {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px transparent;
+        }
 
-    .card h3 {
-      color: var(--accent-color);
-      margin-bottom: 1rem;
-    }
+        .cta-btn:hover {
+            background: var(--gold);
+            color: var(--bg);
+            box-shadow: 0 0 25px var(--gold-glow);
+            transform: translateY(-2px);
+        }
 
-    .cta {
-      text-align: center;
-      margin-top: 3rem;
-    }
+        /* Features & Tech Specs */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
 
-    .cta button {
-      background: none;
-      border: 2px solid var(--accent-color);
-      color: var(--accent-color);
-      padding: 1rem 2rem;
-      font-size: 1.1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 12px;
+            transition: border 0.3s ease;
+        }
 
-    .cta button:hover {
-      background: var(--accent-color);
-      color: var(--bg-color);
-      box-shadow: 0 0 20px var(--accent-color);
-    }
+        .card:hover {
+            border-color: var(--gold);
+        }
 
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      header p {
-        font-size: 1rem;
-      }
-    }
-  </style>
+        .card h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .tech-section {
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 4rem;
+            margin-top: 4rem;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: var(--gold);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            margin: 0.5rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
-  <!-- Hero Section -->
-  <header>
-    <h1>Rankify Automation</h1>
-    <p>Next-gen Roblox community management powered by Node.js. Lightning-fast rankings, absolute security.</p>
-  </header>
 
-  <!-- Tech Specs -->
-  <section>
-    <h2 style="text-align:center; color:var(--accent-color);">Tech Specs</h2>
-    <div class="tech-specs">
-      <div class="card">
-        <h3>Discord.js v14</h3>
-        <p>Built on the latest Discord.js framework for seamless bot integration.</p>
-      </div>
-      <div class="card">
-        <h3>MongoDB</h3>
-        <p>Real-time database integration ensures instant updates and secure storage.</p>
-      </div>
-      <div class="card">
-        <h3>Zero-latency API</h3>
-        <p>Optimized API layer for lightning-fast communication and automation.</p>
-      </div>
+    <div class="container">
+        <header>
+            <h1>Rankify Automation</h1>
+            <p class="subtitle">Next-gen Roblox community management powered by Node.js. Lightning-fast rankings, absolute security.</p>
+            <button class="cta-btn">Get Started</button>
+        </header>
+
+        <section class="grid">
+            <div class="card">
+                <h3>Instant Ranking</h3>
+                <p>Execute rank changes across your entire Roblox group in milliseconds. Our architecture ensures your API requests are never throttled.</p>
+            </div>
+            <div class="card">
+                <h3>Mass Action Detection</h3>
+                <p>Advanced security filters monitor for suspicious promotion activity, keeping your group hierarchy safe from rogue moderators.</p>
+            </div>
+            <div class="card">
+                <h3>Open Cloud Integration</h3>
+                <p>Native support for Roblox Open Cloud. No more cookie handling—just secure, official API key authentication.</p>
+            </div>
+        </section>
+
+        <section class="tech-section">
+            <p style="margin-bottom: 1.5rem; color: var(--text-dim);">ENGINEERED WITH MODERN STACK</p>
+            <span class="tech-tag">Built on Discord.js v14</span>
+            <span class="tech-tag">Real-time MongoDB integration</span>
+            <span class="tech-tag">Zero-latency API Layer</span>
+        </section>
+
+        <footer style="text-align: center; padding: 4rem 0; color: var(--text-dim); font-size: 0.8rem;">
+            &copy; 2026 Rankify Systems. All rights reserved.
+        </footer>
     </div>
-  </section>
 
-  <!-- Features -->
-  <section>
-    <h2 style="text-align:center; color:var(--accent-color);">Features</h2>
-    <div class="features">
-      <div class="card">
-        <h3>Instant Ranking</h3>
-        <p>Automate Roblox group promotions and demotions in real-time.</p>
-      </div>
-      <div class="card">
-        <h3>Mass Action Detection</h3>
-        <p>Detect and respond to suspicious group activities instantly.</p>
-      </div>
-      <div class="card">
-        <h3>Open Cloud Integration</h3>
-        <p>Connect Rankify with your cloud services for maximum scalability.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta">
-    <button>Get Started</button>
-  </section>
 </body>
 </html>
